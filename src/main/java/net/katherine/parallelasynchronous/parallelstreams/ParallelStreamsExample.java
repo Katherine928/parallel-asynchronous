@@ -4,6 +4,7 @@ import net.katherine.parallelasynchronous.util.DataSet;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static net.katherine.parallelasynchronous.util.CommonUtil.*;
 import static net.katherine.parallelasynchronous.util.LoggerUtil.log;
@@ -14,6 +15,16 @@ public class ParallelStreamsExample {
        return namesList
                //.stream()
                .parallelStream()
+                .map(this::addNameLengthTransform)
+                .collect(Collectors.toList());
+    }
+
+    public List<String> StringTransform_1(List<String> namesList, boolean isParallel) {
+        Stream<String> namesStream = namesList.stream();
+        if(isParallel) {
+            namesStream.parallel();
+        }
+        return namesStream
                 .map(this::addNameLengthTransform)
                 .collect(Collectors.toList());
     }
