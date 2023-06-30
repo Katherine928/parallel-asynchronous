@@ -11,12 +11,12 @@ public class ArrayListSpliteratorExample {
     public List<Integer> multiplyEachValue(ArrayList<Integer> inputList, int multiplyValue, boolean isParallel) {
 
         startTimer();
-        Stream<Integer> integerStream = inputList.stream(); // sequential
+//        Stream<Integer> integerStream = inputList.stream(); // sequential
+//                if(isParallel) {
+//            integerStream.parallel();
+//        }
 
-        if(isParallel) {
-            integerStream.parallel();
-        }
-
+        Stream<Integer> integerStream = isParallel? inputList.stream().parallel() : inputList.stream();
 
         List<Integer> resultList = integerStream
                 .map(integer -> integer*multiplyValue)
